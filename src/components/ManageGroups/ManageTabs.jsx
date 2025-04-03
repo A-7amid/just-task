@@ -7,38 +7,40 @@ const ManageTabs = ({ groups }) => {
   const [tabName, setTabName] = useState(tab.title);
 
   return (
-    <div className=" mt-3 h-full">
-      <div className="flex gap-7">
+    <div className="flex flex-col gap-4 mt-3 h-full w-full">
+      <div className="flex">
         {groups.map((group, gruopIndex) => (
           <div className="flex flex-col text-sm" key={gruopIndex}>
-            <span className="text-zinc-300 mb-1">{group.groupTitle}</span>
-            <div className="flex gap-x-3">
-              {group.groupTabs.map((tab, tabIndex) => (
-                <div
-                  key={tabIndex}
-                  onClick={() => {
-                    setTab(tab);
-                    setTabName(tab.title);
-                  }}
-                >
-                  <div className="font-semibold text-sm cursor-pointer border py-2 px-0.5 border-zinc-200 rounded-md transition duration-200 ease-in">
+            <span className="text-zinc-400 mb-1">{group.groupTitle}</span>
+            <div className=" bg-zinc-100 rounded-sm text-zinc-500 cursor-pointer">
+              <div className="px-1 py-1 flex gap-x-3">
+                {group.groupTabs.map((tab, tabIndex) => (
+                  <div
+                    key={tabIndex}
+                    onClick={() => {
+                      setTab(tab);
+                      setTabName(tab.title);
+                    }}
+                  >
                     <span
-                      className={clsx("rounded-md px-5 py-2", {
-                        "bg-cyan-600 text-white": tabName == tab.title,
-                      })}
+                      className={clsx(
+                        "rounded-sm flex font-semibold text-sm items-center gap-x-2 px-3 py-1",
+                        {
+                          "bg-white text-black": tabName === tab.title,
+                        }
+                      )}
                     >
+                      {tab.img}
                       {tab.title}
                     </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-center w-full font-medium text-2xl h-full">
-        {tab?.component}
-      </div>
+      <div className="w-full flex">{tab?.component}</div>
     </div>
   );
 };
